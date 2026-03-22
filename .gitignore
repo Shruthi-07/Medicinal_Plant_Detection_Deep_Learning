@@ -1,0 +1,11 @@
+*.h5
+*.hdf5
+__pycache__/
+*.pyc
+train/
+test/
+val/
+dataset/
+*.jpg
+*.png
+*.jpeg

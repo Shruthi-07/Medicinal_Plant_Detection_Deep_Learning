@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Result - Medicinal Plant Identifier{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="card-title mb-0">
+                    <i class="fas fa-leaf"></i> Identification Result
+                </h4>
+            </div>
+            <div class="card-body text-center">
+                {% if image_data %}
+                <img src="data:image/jpeg;base64,{{ image_data }}" 
+                     class="img-fluid rounded mb-3" 
+                     style="max-height: 400px;" 
+                     alt="Uploaded plant image">
+                {% endif %}
+                
+                <h3 class="text-success">{{ prediction }}</h3>                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    This plant has been identified as <strong>{{ prediction }}</strong>.
+                </div>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-success">
+                        <i class="fas fa-upload"></i> Identify Another Plant
+                    </a>
+                    <a href="{{ url_for('prediction_history') }}" class="btn btn-outline-success">
+                        <i class="fas fa-history"></i> View History
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle"></i> About {{ prediction }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="plantInfo">
+                    {% if plant_info %}
+                    <div class="plant-details">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th class="bg-light">Botanical Name</th>
+                                <td>{{ plant_info.botanical_name or 'Information not available' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Common Name</th>
+                                <td>{{ plant_info.common_name or 'Information not available' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Medicinal Usage</th>
+                                <td>{{ plant_info.medicinal_usage or 'Information not available' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Regions Grown</th>
+                                <td>{{ plant_info.regions_grown or 'Information not available' }}</td>
+                            </tr>
+                            <tr>
+    <th class="bg-light">How to Use</th>
+    <td>{{ plant_info.how_to_use or 'Information not available' }}</td>
+</tr>
+                        </table>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Disclaimer:</strong> Always consult with a healthcare professional before using medicinal plants.
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-center text-muted">
+                        <i class="fas fa-seedling fa-2x mb-2"></i>
+                        <p>Plant information not found in database.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

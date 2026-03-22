@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <h1 class="display-4">Medicinal Plant Identifier</h1>
+        <p class="lead">Upload an image of a medicinal plant and our AI will identify it for you.</p>
+        
+        {% if not current_user.is_authenticated %}
+        <div class="mt-4">
+            <a href="{{ url_for('register') }}" class="btn btn-success btn-lg me-2">
+                <i class="fas fa-user-plus"></i> Get Started
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-lg">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </div>
+        {% else %}
+        <div class="mt-4">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-upload"></i> Identify Plant
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <img src="{{ url_for('static', filename='images/plant-hero.jpg') }}" 
+             alt="Medicinal Plants" class="img-fluid rounded" 
+             onerror="this.style.display='none'">
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-upload fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Upload Image</h5>
+                <p class="card-text">Simply upload a clear image of the medicinal plant you want to identify.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-brain fa-3x text-success mb-3"></i>
+                <h5 class="card-title">AI Analysis</h5>
+                <p class="card-text">Our advanced AI model analyzes the image using deep learning technology.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-info-circle fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Get Results</h5>
+                <p class="card-text">Receive instant identification with confidence score and plant details.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
